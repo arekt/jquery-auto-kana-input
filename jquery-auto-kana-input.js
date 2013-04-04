@@ -3,7 +3,9 @@
   $.fn.extend({
     auto_kana_input: function(options) {
       var ALPHABET_REGEXP, KANA_REGEXP, kana_field_selector, kanji_field_selector, last_kanji_character, past_kanji, past_length_point;
-      if (options == null) options = {};
+      if (options == null) {
+        options = {};
+      }
       ALPHABET_REGEXP = /^[a-zA-Z]$/;
       KANA_REGEXP = /^[ぁ-んァ-ヶー]$/;
       past_kanji = null;
@@ -11,7 +13,7 @@
       last_kanji_character = null;
       kanji_field_selector = this.selector;
       kana_field_selector = options.target || (kanji_field_selector + '_kana');
-      return this.live('keydown', function(event) {
+      return this.on('keydown', function(event) {
         var append_character_to_kana_field, calculate_length_point, clear_kana_field, is_kana, is_special_key, kanji, kanji_character, length, length_point, one_more_kanji_character, replace_to_katakana, select_kana_field;
         append_character_to_kana_field = function(character) {
           var kana_field, val;
@@ -34,9 +36,9 @@
           return $(kana_field_selector);
         };
         calculate_length_point = function(kanji) {
-          var character, i, point, _ref;
+          var character, i, point, _i, _ref;
           point = 0;
-          for (i = 0, _ref = kanji.length - 1; 0 <= _ref ? i <= _ref : i >= _ref; 0 <= _ref ? i++ : i--) {
+          for (i = _i = 0, _ref = kanji.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
             character = kanji.charAt(i);
             if (character.match(ALPHABET_REGEXP)) {
               point += 1;
